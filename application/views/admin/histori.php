@@ -39,9 +39,8 @@
                                 <th>Nama Tipe</th>
                                 <th>Merek Mobil</th>
                                 <th>Lama Pinjam</th>
-                                <th>Status</th>
                                 <th>Disetujui pada</th>
-                                <th>Aksi</th>
+                                <th>Dikembalikan pada</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,11 +53,8 @@
                                     <td><?= $persetujuan['nama_tipe'] ?></td>
                                     <td><?= $persetujuan['merek'] ?></td>
                                     <td><?= $persetujuan['jam_pinjam'] ?> Jam</td>
-                                    <td><?= time() < time() + (60 * 60 * $persetujuan['jam_pinjam']) ? 'Aktif' : "Terlambat" ?></td>
                                     <td><?= $persetujuan['disetujui'] ?></td>
-                                    <td style="text-align: center;">
-                                        <a href="<?= base_url('admin/user/') . $persetujuan['user_id'] ?>" data-toggle="modal" data-target="#checkModal" id="selesaikan-peminjaman" class="btn btn-secondary btn-sm">Detail</a>
-                                    </td>
+                                    <td><?= $persetujuan['tanggal_selesai'] ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

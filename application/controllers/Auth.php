@@ -8,7 +8,6 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->model('Auth_model', 'auth_m');
     }
-
     public function index()
     {
         is_logged_in();

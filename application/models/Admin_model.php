@@ -122,4 +122,37 @@ class Admin_model extends CI_Model
         $this->db->where('id_tr', $id);
         $this->db->update('transaksi');
     }
+    public function selesaikanPersetujuan($id)
+    {
+        // Update Persetujuan
+        $dataTr = [
+            'status_rental' => 3,
+            'tanggal_selesai' => date('Y-m-d h:i:s')
+        ];
+        $this->db->set($dataTr);
+        $this->db->where('id_tr', $id);
+        $this->db->update('transaksi');
+        // Update Mobil
+        $getTransaksiById = $this->db->get_where('transaksi', ['id_tr' => $id])->row_array();
+        $dataMobil = [
+            'dipinjam' => null,
+        ];
+        $this->db->set($dataMobil);
+        $this->db->where('id_mobil', $getTransaksiById['mobil_id']);
+        $this->db->update('mobil');
+    }
+    public function getLaporanAwalAkhir($awal, $akhir)
+    {
+        $this->db->select("*, $this->table_transaksi.created_at as disetujui");
+        $this->db->from($this->table_transaksi);
+        $this->db->join($this->table_mobil, "$this->table_mobil.id_mobil = $this->table_transaksi.mobil_id");
+        $this->db->join($this->table_tipe, "$this->table_tipe.id_tipe = $this->table_mobil.tipe_id");
+        $this->db->join($this->table_user, "$this->table_user.id = $this->table_transaksi.user_id");
+        $this->db->join($this->table_profil, "$this->table_profil.user_id = $this->table_user.id");
+        $this->db->where("DATE($this->table_transaksi.created_at) >=", $awal);
+        $this->db->where("DATE($this->table_transaksi.created_at) <=", $akhir);
+        $this->db->where("$this->table_transaksi.status_rental", 3);
+
+        return $this->db->get()->result_array();
+    }
 }

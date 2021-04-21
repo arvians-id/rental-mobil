@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2021 at 10:38 AM
+-- Generation Time: Apr 21, 2021 at 09:05 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -70,7 +70,7 @@ CREATE TABLE `mobil` (
 
 INSERT INTO `mobil` (`id_mobil`, `tipe_id`, `merek`, `no_plat`, `warna`, `tahun`, `dipinjam`, `deskripsi`, `photo`, `created_at`, `updated_at`) VALUES
 (3, 7, 'Toyota camry', 'B 1457 FOH', 'Hitam', '2010', NULL, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem saepe placeat explicabo tempore odio labore in hic, asperiores itaque voluptate ducimus iusto voluptatibus sed illum minus recusandae iste! Exercitationem animi quod maiores quaerat beatae dolores voluptate eius amet nostrum vel. Sed debitis eligendi a. Sint quos similique, cumque, quo corrupti totam atque necessitatibus, expedita blanditiis debitis quasi numquam quaerat. Excepturi repellat totam expedita a, ut eaque, unde possimus consequatur voluptate, ullam temporibus. Nobis, in aspernatur ea possimus consectetur tempora doloribus quibusdam perspiciatis odio a facere voluptatem est dolor adipisci asperiores sequi dolores qui? Doloremque quam dolores sed. Explicabo, dolore laboriosam.', 'WhatsApp_Image_2021-01-31_at_23_53_43.jpeg', '2021-04-21 07:34:42', '2021-04-21 07:34:42'),
-(4, 7, 'Toyota Avanza', 'B 0798 D', 'Putih', '2014', '2021-04-21 03:35:24', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nemo exercitationem quidem? Est molestias obcaecati corrupti laborum, enim iure, sunt hic odit delectus quam asperiores ipsam? Provident beatae deleniti, nobis sunt corrupti voluptatum quasi mollitia laboriosam quod vel libero molestiae pariatur dolorem earum corporis porro eum saepe rem asperiores dolor.', 'WhatsApp_Image_2021-01-31_at_23_53_503.jpeg', '2021-04-21 07:39:34', '2021-04-21 07:39:34');
+(4, 7, 'Toyota Avanza', 'B 0798 D', 'Putih', '2014', NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nemo exercitationem quidem? Est molestias obcaecati corrupti laborum, enim iure, sunt hic odit delectus quam asperiores ipsam? Provident beatae deleniti, nobis sunt corrupti voluptatum quasi mollitia laboriosam quod vel libero molestiae pariatur dolorem earum corporis porro eum saepe rem asperiores dolor.', 'WhatsApp_Image_2021-01-31_at_23_53_503.jpeg', '2021-04-21 07:39:34', '2021-04-21 07:39:34');
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE `profil` (
   `alamat` varchar(100) DEFAULT NULL,
   `jenis_kelamin` varchar(20) DEFAULT NULL,
   `no_telepon` varchar(20) DEFAULT NULL,
-  `nik` varchar(20) DEFAULT NULL
+  `nik` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `profil` (
 
 INSERT INTO `profil` (`id_profil`, `user_id`, `nama_lengkap`, `email`, `alamat`, `jenis_kelamin`, `no_telepon`, `nik`) VALUES
 (3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 5, 'Widdy Arfiansyah', NULL, NULL, NULL, NULL, NULL);
+(5, 5, 'Widdy Arfiansyah', 'warfian@gmail.com', 'Bhayangkara', 'Laki-laki', '082234222344', '1223456345778976');
 
 -- --------------------------------------------------------
 
@@ -130,6 +130,7 @@ CREATE TABLE `transaksi` (
   `jam_pinjam` int(11) DEFAULT NULL,
   `status_rental` int(11) NOT NULL,
   `tanggal_submit` datetime NOT NULL,
+  `tanggal_selesai` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_time` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -138,8 +139,8 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_tr`, `user_id`, `mobil_id`, `kadaluarsa`, `jam_pinjam`, `status_rental`, `tanggal_submit`, `created_at`, `created_time`) VALUES
-(1, 5, 4, NULL, 2, 1, '2021-04-21 11:31:44', '2021-04-21 03:35:24', 1618994124);
+INSERT INTO `transaksi` (`id_tr`, `user_id`, `mobil_id`, `kadaluarsa`, `jam_pinjam`, `status_rental`, `tanggal_submit`, `tanggal_selesai`, `created_at`, `created_time`) VALUES
+(1, 5, 4, NULL, 1, 3, '2021-04-21 11:31:44', '2021-04-21 05:37:26', '2021-04-21 03:35:24', 1618994124);
 
 --
 -- Indexes for dumped tables

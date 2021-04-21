@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/phpoffice/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Admin extends CI_Controller
 {
@@ -14,7 +18,11 @@ class Admin extends CI_Controller
         $data = [
             'viewContent' => 'admin/index',
             'judul' => 'Admin',
-            'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array()
+            'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
+            'countAllMobil' => $this->db->get('mobil')->num_rows(),
+            'countAllProses' => $this->db->get_where('transaksi', ['status_rental' => 0])->num_rows(),
+            'countAllPeminjaman' => $this->db->get_where('transaksi', ['status_rental' => 1])->num_rows(),
+            'countAllSelesai' => $this->db->get_where('transaksi', ['status_rental' => 3])->num_rows(),
         ];
         $this->load->view('admin/layout/wrapperIndex', $data, FALSE);
     }
@@ -214,6 +222,12 @@ class Admin extends CI_Controller
         ];
         $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
     }
+    public function create_peminjaman($id)
+    {
+        $this->admin_m->selesaikanPersetujuan($id);
+        $this->session->set_flashdata('success', 'Data peminjaman berhasil diselesaikan.');
+        redirect('admin/histori');
+    }
     public function histori()
     {
         $data = [
@@ -223,5 +237,78 @@ class Admin extends CI_Controller
             'getAllHistori' => $this->admin_m->getAllStatus(3)->result_array()
         ];
         $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+    }
+    public function laporan()
+    {
+        $this->form_validation->set_rules('awal', 'Awal', 'required');
+        $this->form_validation->set_rules('akhir', 'Akhir', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = [
+                'viewContent' => 'admin/laporan',
+                'judul' => 'Admin',
+                'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
+            ];
+            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        } else {
+            $awal = $this->input->post('awal');
+            $akhir = $this->input->post('akhir');
+
+            $laporan = $this->admin_m->getLaporanAwalAkhir($awal, $akhir);
+
+
+            $excel = new Spreadsheet();
+
+            $excel->getProperties()->setCreator('Dede Alsa');
+            $excel->getProperties()->setLastModifiedBy('Dede Alsa');
+            $excel->getProperties()->setTitle('Laporan Family Rent Car');
+            $excel->setActiveSheetIndex(0)
+                ->setCellValue('A1', 'No')
+                ->setCellValue('B1', 'Username')
+                ->setCellValue('C1', 'Nama Lengkap')
+                ->setCellValue('D1', 'Jenis Kelamin')
+                ->setCellValue('E1', 'No Telepon')
+                ->setCellValue('F1', 'Email')
+                ->setCellValue('G1', 'Alamat')
+                ->setCellValue('H1', 'NIK')
+                ->setCellValue('I1', 'Tipe Mobil')
+                ->setCellValue('J1', 'Merek Mobil')
+                ->setCellValue('K1', 'Lama Peminjaman')
+                ->setCellValue('L1', 'Disetujui')
+                ->setCellValue('M1', 'Dikembalikan');
+
+            $column = 2;
+            $no = 1;
+            if (!empty($laporan)) {
+                if (is_array($laporan)) {
+                    foreach ($laporan as $lap) {
+                        $excel->setActiveSheetIndex(0)
+                            ->setCellValue('A' . $column, $no++)
+                            ->setCellValue('B' . $column, $lap['username'])
+                            ->setCellValue('C' . $column, $lap['nama_lengkap'])
+                            ->setCellValue('D' . $column, $lap['jenis_kelamin'])
+                            ->setCellValue('E' . $column, $lap['no_telepon'])
+                            ->setCellValue('F' . $column, $lap['email'])
+                            ->setCellValue('G' . $column, $lap['alamat'])
+                            ->setCellValue('H' . $column, $lap['nik'])
+                            ->setCellValue('I' . $column, $lap['nama_tipe'])
+                            ->setCellValue('J' . $column, $lap['merek'])
+                            ->setCellValue('K' . $column, $lap['jam_pinjam'] . " Jam")
+                            ->setCellValue('L' . $column, $lap['disetujui'])
+                            ->setCellValue('M' . $column, $lap['tanggal_selesai']);
+                        $column++;
+                    }
+                }
+                $writer = new Xlsx($excel);
+                $fileName = bin2hex(random_bytes(12));
+
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+                header('Cache-Control: max-age=0');
+
+                $writer->save('php://output');
+                exit;
+            }
+        }
     }
 }

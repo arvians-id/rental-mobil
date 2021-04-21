@@ -51,11 +51,11 @@
                                 if (time() < $persetujuan['created_time'] + (60 * 60 * $persetujuan['jam_pinjam'])) {
                                     $keterlambatan = 'Tidak ada';
                                 } else {
-                                    $time = $persetujuan['created_time'] + (60 * 60 * $persetujuan['jam_pinjam']) - time();
-                                    $hours = floor($time / 60);
-                                    $minutes = $time % 60;
+                                    $time = time() - ($persetujuan['created_time'] + (60 * 60 * $persetujuan['jam_pinjam']));
+                                    $minutes = floor($time / 60);
+                                    $hours = $minutes / 60;
 
-                                    $keterlambatan = $hours . ":" . $minutes;
+                                    $keterlambatan = $minutes . " Menit / " . number_format((float)$hours, 2, '.', '') . " Jam";
                                 }
                                 ?>
                                 <tr>
@@ -68,7 +68,7 @@
                                     <td><?= time() < $persetujuan['created_time'] + (60 * 60 * $persetujuan['jam_pinjam']) ? 'Aktif' : "Terlambat" ?></td>
                                     <td><?= $persetujuan['disetujui'] ?></td>
                                     <td style="text-align: center;">
-                                        <a href="<?= base_url('admin/user/') . $persetujuan['user_id'] ?>" data-toggle="modal" data-target="#checkModal" id="selesaikan-peminjaman" class="btn btn-secondary btn-sm" data-id="<?= $persetujuan['id_tr'] ?>" data-username="<?= $persetujuan['username'] ?>" data-nama="<?= $persetujuan['nama_lengkap'] ?>" data-merek="<?= $persetujuan['merek'] ?>" data-waktu="<?= $persetujuan['jam_pinjam'] ?>" data-status="<?= time() < time() + (60 * 60 * $persetujuan['jam_pinjam']) ? 'Aktif' : "Terlambat" ?>" data-keterlambatan="<?= $keterlambatan ?>">Detail</a>
+                                        <a href="<?= base_url('admin/user/') . $persetujuan['user_id'] ?>" data-toggle="modal" data-target="#checkModal" id="checkData" class="btn btn-secondary btn-sm" data-id="<?= $persetujuan['id_tr'] ?>" data-username="<?= $persetujuan['username'] ?>" data-nama="<?= $persetujuan['nama_lengkap'] ?>" data-merek="<?= $persetujuan['merek'] ?>" data-waktu="<?= $persetujuan['jam_pinjam'] ?>" data-status="<?= time() < time() + (60 * 60 * $persetujuan['jam_pinjam']) ? 'Aktif' : "Terlambat" ?>" data-keterlambatan="<?= $keterlambatan ?>">Detail</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -124,12 +124,11 @@
                         </tr>
                     </tbody>
                 </table>
-                <form id="selesaikan" method="post">
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Selesaikan Peminjaman</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    </div>
-                </form>
+                <input type="hidden" id="id-hid">
+                <div class="modal-footer">
+                    <a href="javascript:void(0);" class="btn btn-primary" id="btn-selesaikan">Selesaikan Peminjaman</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
             </div>
         </div>
     </div>
@@ -148,12 +147,12 @@
             }, ],
         })
 
-        $(document).on('click', '#selesaikan-peminjamn', function(event) {
+        $(document).on('click', '#btn-selesaikan', function(event) {
             event.preventDefault();
-            let href = $(this).attr('href');
+            let id = $('#id-hid').val();
             Swal.fire({
                 title: 'Perhatian!',
-                text: 'Yakin ingin menolak?',
+                text: 'Yakin ingin menyelesaikan peminjaman?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#1d96c3',
@@ -161,12 +160,12 @@
                 confirmButtonText: 'Ya, Yakin!'
             }).then((result) => {
                 if (result.value) {
-                    document.location.href = href;
+                    document.location.href = `<?= base_url() ?>admin/create_peminjaman/${id}`;
                 }
             })
         })
 
-        $(document).on('click', '#selesaikan-peminjaman', function() {
+        $(document).on('click', '#checkData', function() {
             // Data
             let id = $(this).data('id');
             let username = $(this).data('username');
@@ -182,8 +181,8 @@
             $('#waktu').html(waktu + ' Jam');
             $('#status').html(status);
             $('#keterlambatan').html(keterlambatan);
+            $('#id-hid').val($(this).data('id'));
 
-            $('#selesaikan').attr('action', `<?= base_url() ?>admin/create_persetujuan/${id}`);
             // Show Modal
             $('#checkModal').modal('show')
         })
