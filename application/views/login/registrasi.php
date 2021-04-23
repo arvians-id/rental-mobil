@@ -1,52 +1,61 @@
-<section id="wrapper">
-    <div class="login-register">
-        <div class="login-box card shadow-sm">
-            <div class="card-body">
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="<?= base_url() ?>">Beranda</a></li>
+                    <li class="active"><a href="" <?= base_url() ?>">Registrasi</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
                 <form method="post">
-                    <h3 class="box-title m-b-20">Buat Akun</h3>
+                    <h3 class="box-title m-b-20">Registrasi</h3>
+                    <small>Sudah punya akun? <a href="<?= base_url('auth') ?>">Masuk</a> </small>
+                    <hr>
                     <div class="form-group">
                         <label>Username</label>
-                        <div class="col-xs-12">
-                            <input class="form-control <?= form_error('username') ? 'border-danger' : '' ?>" name="username" value="<?= set_value('username') ?>" type="text">
-                            <small class="text-danger"><?= form_error('username') ?></small>
-                        </div>
+                        <input class="form-control" value="<?= set_value('username') ?>" name="username" type="text" placeholder="Masukkan username anda">
+                        <small class="text-danger"><?= form_error('username') ?></small>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <div class="input-group">
-                            <input class="form-control <?= form_error('password') ? 'border-danger' : '' ?>" name="password" type="password">
-                            <div class="input-group-append">
-                                <a type="button" id="showPassword" class="input-group-text bg-transparent"><i class="fas fa-eye-slash"></i></a>
-                            </div>
-                        </div>
+                        <input class="form-control" name="password" type="password" placeholder="Masukkan password anda">
                         <small class="text-danger"><?= form_error('password') ?></small>
+                        <small type="button" id="showPassword" style="cursor: pointer">Lihat Password</small>
                     </div>
                     <div class="form-group">
                         <label>Ulangi Password</label>
-                        <div class="input-group">
-                            <input class="form-control <?= form_error('rpassword') ? 'border-danger' : '' ?>" name="rpassword" type="password">
-                            <div class="input-group-append">
-                                <a type="button" id="showRepeatPassword" class="input-group-text bg-transparent"><i class="fas fa-eye-slash"></i></a>
-                            </div>
-                        </div>
+                        <input class="form-control" name="rpassword" type="rpassword" placeholder="Masukkan ulang password anda">
                         <small class="text-danger"><?= form_error('rpassword') ?></small>
+                        <small type="button" id="showRepeatPassword" style="cursor: pointer">Lihat Password</small>
                     </div>
                     <div class="form-group text-center">
-                        <div class="col-xs-12 p-b-20">
-                            <button class="btn btn-block btn-md btn-info" type="submit">Buat Akun</button>
-                        </div>
-                    </div>
-                    <div class="form-group text-center">
-                        <div class="col-xs-12 text-center">
-                            Sudah punya akun? <a href="<?= base_url('auth') ?>" class="text-info m-l-5"><b>Login</b></a>
-                        </div>
+                        <button class="btn btn-block btn-md btn-danger" type="submit">Daftar</button>
                     </div>
                 </form>
             </div>
         </div>
+        <!-- /row -->
     </div>
-</section>
-<script src="/template/adminwrap/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
 <script>
     const idShowPassword = document.querySelector('#showPassword');
     const idShowRPassword = document.querySelector('#showRepeatPassword');
@@ -56,17 +65,17 @@
     // Show Hide Password
     const resetPassword = () => {
         inputPassword.setAttribute('type', 'password');
-        idShowPassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        idShowPassword.innerHTML = 'Lihat Password';
         inputRPassword.setAttribute('type', 'password');
-        idShowRPassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        idShowRPassword.innerHTML = 'Lihat Password';
     }
     const showPassword = (show, idPassword) => {
         if (idPassword.getAttribute('type') == 'password') {
             idPassword.setAttribute('type', 'text');
-            show.innerHTML = '<i class="fas fa-eye"></i>';
+            show.innerHTML = 'Tutup Password';
         } else {
             idPassword.setAttribute('type', 'password');
-            show.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            show.innerHTML = 'Lihat Password';
         }
     }
     idShowPassword.addEventListener('click', function() {

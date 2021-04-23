@@ -21,3 +21,8 @@ function activeMenu($arrayMenu)
     $ths = &get_instance();
     return !in_array($ths->uri->segment(2), $arrayMenu) ?: 'class="active"';
 }
+function activeMenuHome($arrayMenu)
+{
+    $ths = &get_instance();
+    return !in_array($ths->uri->segment(1), $arrayMenu) ?: 'class="active"';
+}

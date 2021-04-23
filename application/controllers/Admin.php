@@ -24,7 +24,7 @@ class Admin extends CI_Controller
             'countAllPeminjaman' => $this->db->get_where('transaksi', ['status_rental' => 1])->num_rows(),
             'countAllSelesai' => $this->db->get_where('transaksi', ['status_rental' => 3])->num_rows(),
         ];
-        $this->load->view('admin/layout/wrapperIndex', $data, FALSE);
+        $this->load->view('admin/layout/wrapperIndex', $data);
     }
     public function tipe()
     {
@@ -38,7 +38,7 @@ class Admin extends CI_Controller
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
                 'getAllTipe' => $this->db->get('tipe')->result_array()
             ];
-            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+            $this->load->view('admin/layout/wrapperTipe', $data);
         } else {
             $this->admin_m->insertTipe();
             $this->session->set_flashdata('success', 'Data berhasil dibuat.');
@@ -60,7 +60,7 @@ class Admin extends CI_Controller
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
                 'getMobilById' => $this->admin_m->getAllMobil($id)->row_array()
             ];
-            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+            $this->load->view('admin/layout/wrapperTipe', $data);
         }
         $data = [
             'viewContent' => 'admin/mobil',
@@ -68,7 +68,7 @@ class Admin extends CI_Controller
             'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             'getAllMobil' => $this->admin_m->getAllMobil()->result_array()
         ];
-        $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        $this->load->view('admin/layout/wrapperTipe', $data);
     }
     public function create_mobil()
     {
@@ -86,7 +86,7 @@ class Admin extends CI_Controller
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
                 'getAllTipe' => $this->db->get('tipe')->result_array()
             ];
-            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+            $this->load->view('admin/layout/wrapperTipe', $data);
         } else {
             $config['upload_path']          = './assets/img/mobil';
             $config['allowed_types']        = 'jpg|png|jpeg';
@@ -119,7 +119,7 @@ class Admin extends CI_Controller
                 'getAllTipe' => $this->db->get('tipe')->result_array(),
                 'getMobilById' => $this->db->get_where('mobil', ['id_mobil' => $id])->row_array()
             ];
-            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+            $this->load->view('admin/layout/wrapperTipe', $data);
         } else {
             $getMobilById = $this->db->get_where('mobil', ['id_mobil' => $id])->row_array();
             $upload_img = $_FILES['photo']['name'];
@@ -158,7 +158,7 @@ class Admin extends CI_Controller
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
                 'getUserById' => $this->admin_m->getAllUser($id)->row_array()
             ];
-            $this->load->view('admin/layout/wrapperDetail', $data, FALSE);
+            $this->load->view('admin/layout/wrapperDetail', $data);
         }
         $data = [
             'viewContent' => 'admin/user',
@@ -166,7 +166,7 @@ class Admin extends CI_Controller
             'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             'getAllUser' => $this->admin_m->getAllUser()->result_array()
         ];
-        $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        $this->load->view('admin/layout/wrapperTipe', $data);
     }
     public function destroy_user($id)
     {
@@ -182,7 +182,7 @@ class Admin extends CI_Controller
             'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             'getAllPersetujuan' => $this->admin_m->getAllStatus(0)->result_array()
         ];
-        $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        $this->load->view('admin/layout/wrapperTipe', $data);
     }
     public function create_persetujuan($id)
     {
@@ -220,7 +220,7 @@ class Admin extends CI_Controller
             'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             'getAllPeminjaman' => $this->admin_m->getAllStatus(1)->result_array()
         ];
-        $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        $this->load->view('admin/layout/wrapperTipe', $data);
     }
     public function create_peminjaman($id)
     {
@@ -236,7 +236,7 @@ class Admin extends CI_Controller
             'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             'getAllHistori' => $this->admin_m->getAllStatus(3)->result_array()
         ];
-        $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+        $this->load->view('admin/layout/wrapperTipe', $data);
     }
     public function laporan()
     {
@@ -249,7 +249,7 @@ class Admin extends CI_Controller
                 'judul' => 'Admin',
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
             ];
-            $this->load->view('admin/layout/wrapperTipe', $data, FALSE);
+            $this->load->view('admin/layout/wrapperTipe', $data);
         } else {
             $awal = $this->input->post('awal');
             $akhir = $this->input->post('akhir');

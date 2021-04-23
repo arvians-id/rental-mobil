@@ -5,7 +5,12 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="nav-small-cap">--- MAIN MENU</li>
-                <li> <a class="waves-effect waves-dark bg-white" href="<?= base_url('admin') ?>" aria-expanded="false"><i class="icon-Home-2"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Home-2"></i><span class="hide-menu">Dashboard</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?= base_url('admin') ?>">Dashboard Admin</a></li>
+                        <li><a href="<?= base_url() ?>">Dashboard Utama</a></li>
+                    </ul>
+                </li>
                 <li <?= activeMenu(['mobil', 'edit_mobil', 'create_mobil', 'user']) ?>> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="icon-Big-Data"></i><span class="hide-menu">Master Data</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url('admin/tipe') ?>">Data Tipe</a></li>

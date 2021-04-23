@@ -19,7 +19,7 @@ class Auth extends CI_Controller
                 'viewContent' => 'login/index',
                 'judul' => 'Login'
             ];
-            $this->load->view('login/layout/wrapper', $data, FALSE);
+            $this->load->view('login/layout/wrapperAuth', $data);
         } else {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
@@ -34,7 +34,11 @@ class Auth extends CI_Controller
                         'role_id' => $cekUser['role_id'],
                     ];
                     $this->session->set_userdata($setSession);
-                    redirect('admin');
+                    if ($cekUser['role_id'] == 1) {
+                        redirect('admin');
+                    } else {
+                        redirect('user');
+                    }
                 }
             }
             $this->session->set_flashdata('error', 'Username atau password salah!');
@@ -53,15 +57,15 @@ class Auth extends CI_Controller
         is_logged_in();
 
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[auth.username]');
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[rpassword]');
-        $this->form_validation->set_rules('rpassword', 'Password', 'required|trim|min_length[3]|matches[password]');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]|matches[rpassword]');
+        $this->form_validation->set_rules('rpassword', 'Password', 'required|trim|min_length[6]|matches[password]');
 
         if ($this->form_validation->run() == FALSE) {
             $data = [
                 'viewContent' => 'login/registrasi',
                 'judul' => 'Registrasi'
             ];
-            $this->load->view('login/layout/wrapper', $data, FALSE);
+            $this->load->view('login/layout/wrapperAuth', $data);
         } else {
             $data = [
                 'username' => $this->input->post('username'),
