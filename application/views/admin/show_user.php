@@ -70,9 +70,36 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
-                                <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <!-- .row -->
+                                <h3>Riwayat Pemesanan User</h3>
+                                <hr>
+                                <div class="row">
+                                    <?php foreach ($getMobilUserTransaksi as $transaksiUser) : ?>
+                                        <!-- .col -->
+                                        <div class="col-md-6 col-lg-6 col-xlg-4">
+                                            <div class="card card-body shadow-sm">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-lg-3 text-center">
+                                                        <a href="<?= base_url('admin/mobil/') . $transaksiUser['mobil_id'] ?>"><img src="<?= base_url() ?>assets/img/mobil/<?= $transaksiUser['photo'] ?>" alt="user" class="img-circle img-responsive"></a>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <h3 class="box-title m-b-0"><?= $transaksiUser['merek'] ?></h3> <small><?= $transaksiUser['nama_tipe'] ?></small>
+                                                        <address>
+                                                            Tanggal Pemesanan : <?= $transaksiUser['tanggal_submit'] ?>
+                                                            <br />
+                                                            Tanggal Dikembalikan : <?= $transaksiUser['created_time'] == null ? 'Belum ada' : date('Y-m-d h:i:s', $transaksiUser['created_time']) ?>
+                                                            <br />
+                                                            <br />
+                                                            Status : <?= $transaksiUser['keterangan'] ?>
+                                                        </address>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.col -->
+                                    <?php endforeach ?>
+                                </div>
+                                <!-- /.row -->
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ class Home_model extends CI_Model
 {
     protected $table_mobil = 'mobil';
     protected $table_tipe = 'tipe';
+    protected $table_transaksi = 'transaksi';
 
     public function getAllNewMobil($limit)
     {
@@ -36,5 +37,20 @@ class Home_model extends CI_Model
         $query = $this->db->get();
 
         return $query;
+    }
+    public function insertTransaksi($id)
+    {
+        $data = [
+            'user_id' => $this->session->userdata('id'),
+            'mobil_id' => $id,
+            'kadaluarsa' => time() + (60 * 60 * 2),
+            'status_rental' => 0,
+            'tanggal_submit' => date('Y-m-d h:i:s'),
+        ];
+        $this->db->insert($this->table_transaksi, $data);
+
+        $dataPinjam['dipinjam'] = date('Y-m-d h:i:s');
+        $this->db->where('id_mobil', $id);
+        $this->db->update($this->table_mobil, $dataPinjam);
     }
 }

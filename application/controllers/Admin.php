@@ -156,7 +156,8 @@ class Admin extends CI_Controller
                 'viewContent' => 'admin/show_user',
                 'judul' => 'Admin',
                 'cekUser' => $this->db->get_where('auth', ['username' => $this->session->userdata('username')])->row_array(),
-                'getUserById' => $this->admin_m->getAllUser($id)->row_array()
+                'getUserById' => $this->admin_m->getAllUser($id)->row_array(),
+                'getMobilUserTransaksi' => $this->admin_m->getMobilUserTransaksi($id)->result_array()
             ];
             $this->load->view('admin/layout/wrapperDetail', $data);
         }
@@ -207,7 +208,7 @@ class Admin extends CI_Controller
     {
         $getTransaksiById = $this->db->get_where('transaksi', ['id_tr' => $id])->row_array();
         if ($getTransaksiById['kadaluarsa'] < time()) {
-            $this->db->delete('transaksi', ['id_tr' => $id]);
+            $this->admin_m->hapusPersetujuan($id);
             $this->session->set_flashdata('success', 'Data berhasil dihapus.');
             redirect('admin/persetujuan');
         }

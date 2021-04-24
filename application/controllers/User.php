@@ -7,6 +7,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Auth_model', 'auth_m');
+        $this->load->model('User_model', 'user_m');
         is_logged_not_in();
     }
     public function index()
@@ -89,10 +90,12 @@ class User extends CI_Controller
     }
     public function pesanan()
     {
+        $idSession = $this->session->userdata('id');
         $data = [
             'viewContent' => 'user/pesanan',
             'judul' => 'User',
             'cekUser' => $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array(),
+            'getPemesananMobil' => $this->user_m->getPemesananMobil($idSession)->result_array()
         ];
         $this->load->view('user/layout/wrapperUser', $data);
     }

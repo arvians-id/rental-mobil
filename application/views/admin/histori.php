@@ -2,17 +2,17 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-7 col-md-5 align-self-center">
-                <h3 class="text-themecolor">Histori</h3>
+                <h3 class="text-themecolor">Riwayat</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Admin</a></li>
-                    <li class="breadcrumb-item active">Histori</li>
+                    <li class="breadcrumb-item active">Riwayat</li>
                 </ol>
             </div>
         </div>
         <!-- table responsive -->
         <div class="card shadow-sm">
             <div class="card-body">
-                <h4 class="card-title">Histori Peminjaman Selesai</h4>
+                <h4 class="card-title">Riwayat Peminjaman Selesai</h4>
                 <hr>
                 <?php if ($this->session->flashdata('success')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

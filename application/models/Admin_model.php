@@ -8,6 +8,7 @@ class Admin_model extends CI_Model
     protected $table_user = 'auth';
     protected $table_profil = 'profil';
     protected $table_transaksi = 'transaksi';
+    protected $table_status = 'status_rental';
 
     public function getAllMobil($id = null)
     {
@@ -17,6 +18,18 @@ class Admin_model extends CI_Model
         if ($id != null) {
             $this->db->where("$this->table_mobil.id_mobil", $id);
         }
+        $query = $this->db->get();
+
+        return $query;
+    }
+    public function getMobilUserTransaksi($id = null)
+    {
+        $this->db->select('*');
+        $this->db->from($this->table_transaksi);
+        $this->db->join($this->table_mobil, "$this->table_mobil.id_mobil = $this->table_transaksi.mobil_id");
+        $this->db->join($this->table_tipe, "$this->table_tipe.id_tipe = $this->table_mobil.tipe_id");
+        $this->db->join($this->table_status, "$this->table_status.id_status = $this->table_transaksi.status_rental");
+        $this->db->where("$this->table_transaksi.user_id", $id);
         $query = $this->db->get();
 
         return $query;
@@ -121,6 +134,11 @@ class Admin_model extends CI_Model
         $this->db->set($dataTr);
         $this->db->where('id_tr', $id);
         $this->db->update('transaksi');
+
+        $getTransaksiById = $this->db->get_where('transaksi', ['id_tr' => $id])->row_array();
+        // Ubah Menjadi Tersedia
+        $this->db->where('id_mobil', $getTransaksiById['mobil_id']);
+        $this->db->update('mobil', ['dipinjam' => null]);
     }
     public function selesaikanPersetujuan($id)
     {
@@ -154,5 +172,14 @@ class Admin_model extends CI_Model
         $this->db->where("$this->table_transaksi.status_rental", 3);
 
         return $this->db->get()->result_array();
+    }
+    public function hapusPersetujuan($id)
+    {
+        $getTransaksiById = $this->db->get_where('transaksi', ['id_tr' => $id])->row_array();
+        // Delete Transaksi
+        $this->db->delete('transaksi', ['id_tr' => $id]);
+        // Ubah Menjadi Tersedia
+        $this->db->where('id_mobil', $getTransaksiById['mobil_id']);
+        $this->db->update('mobil', ['dipinjam' => null]);
     }
 }

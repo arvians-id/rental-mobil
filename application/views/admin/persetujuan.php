@@ -52,7 +52,7 @@
                                     <td><?= $persetujuan['nama_lengkap'] ?></td>
                                     <td><?= $persetujuan['nama_tipe'] ?></td>
                                     <td><?= $persetujuan['merek'] ?></td>
-                                    <td><?= $persetujuan['kadaluarsa'] < time() + (60 * 60 * 2) ? 'Kadaluarsa' : 'Aktif' ?></td>
+                                    <td><?= $persetujuan['kadaluarsa'] < time() ? 'Kadaluarsa' : 'Aktif' ?></td>
                                     <td style="text-align: center;">
                                         <?php if ($persetujuan['kadaluarsa'] < time()) : ?>
                                             <a href="<?= base_url('admin/destroy_persetujuan/') . $persetujuan['id_tr'] ?>" id="hapus-persetujuan" class="btn btn-secondary btn-sm">Hapus</a>
@@ -62,7 +62,10 @@
                                         <?php endif ?>
                                     </td>
                                     <td style="text-align: center;">
-                                        <a href="<?= base_url('admin/user/') . $persetujuan['user_id'] ?>" class="btn btn-secondary btn-sm">Detail User</a>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="<?= base_url('admin/mobil/') . $persetujuan['mobil_id'] ?>" class="btn btn-secondary btn-sm">Lihat Mobil</a>
+                                            <a href="<?= base_url('admin/user/') . $persetujuan['user_id'] ?>" class="btn btn-secondary btn-sm">Detail User</a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -113,7 +116,7 @@
                         <input type="text" class="form-control" value="<?= date('Y-m-d h:i:s') ?>" readonly>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary" id="create-btn">Simpan</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </div>
                 </form>
@@ -134,7 +137,41 @@
                 "orderable": false,
             }, ],
         })
+        $(document).on('click', '#create-btn', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Perhatian!',
+                text: 'Yakin ingin menyetujui pesanan ini?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1d96c3',
+                cancelButtonColor: '#ff5c6c',
+                confirmButtonText: 'Ya, yakin!'
+            }).then((result) => {
+                if (result.value) {
+                    $(this).parents('form').submit()
+                }
+            })
+        })
 
+        $(document).on('click', '#tolak-persetujuan', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('href');
+            Swal.fire({
+                title: 'Perhatian!',
+                text: 'Yakin ingin menolak?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1d96c3',
+                cancelButtonColor: '#ff5c6c',
+                confirmButtonText: 'Ya, Yakin!'
+            }).then((result) => {
+                if (result.value) {
+
+                    document.location.href = href;
+                }
+            })
+        })
         $(document).on('click', '#tolak-persetujuan', function(event) {
             event.preventDefault();
             let href = $(this).attr('href');

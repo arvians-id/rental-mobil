@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label>Ulangi Password</label>
-                        <input class="form-control" name="rpassword" type="rpassword" placeholder="Masukkan ulang password anda">
+                        <input class="form-control" name="rpassword" type="password" placeholder="Masukkan ulang password anda">
                         <small class="text-danger"><?= form_error('rpassword') ?></small>
                         <small type="button" id="showRepeatPassword" style="cursor: pointer">Lihat Password</small>
                     </div>

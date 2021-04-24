@@ -9,21 +9,12 @@ class Home extends CI_Controller
 		$this->load->model('Home_model', 'home_m');
 		$this->load->model('Auth_model', 'auth_m');
 	}
-	public function index($id = null)
+	public function index()
 	{
-		if ($id != null) {
-			$data = [
-				'viewContent' => 'home/detail',
-				'judul' => 'Family Rent Car',
-				'getMobilById' => $this->home_m->getAllMobilById($id)->row_array(),
-				'getAllNewMobil' => $this->home_m->getAllNewMobil(4)->result_array(),
-			];
-			$this->load->view('home/layout/wrapperHome', $data);
-		}
 		$config = [
-			'base_url' => base_url('home/mobil'),
+			'base_url' => base_url('home/index'),
 			'total_rows' => $this->db->get('mobil')->num_rows(),
-			'per_page' => 16,
+			'per_page' => 12,
 		];
 		$this->pagination->initialize($config);
 
@@ -33,6 +24,16 @@ class Home extends CI_Controller
 			'judul' => 'Family Rent Car',
 			'start' => $start,
 			'getAllMobilPagination' => $this->home_m->getAllMobilPagination($config['per_page'], $start),
+		];
+		$this->load->view('home/layout/wrapperHome', $data);
+	}
+	public function detail($id)
+	{
+		$data = [
+			'viewContent' => 'home/detail',
+			'judul' => 'Family Rent Car',
+			'getMobilById' => $this->home_m->getAllMobilById($id)->row_array(),
+			'getAllNewMobil' => $this->home_m->getAllNewMobil(4)->result_array(),
 		];
 		$this->load->view('home/layout/wrapperHome', $data);
 	}
@@ -46,6 +47,7 @@ class Home extends CI_Controller
 		$this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required');
 		$this->form_validation->set_rules('no_telepon', 'no telepon', 'required');
 		$this->form_validation->set_rules('nik', 'nik', 'required');
+		$this->form_validation->set_rules('check', 'check', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = [
@@ -56,7 +58,20 @@ class Home extends CI_Controller
 			];
 			$this->load->view('home/layout/wrapperHome', $data);
 		} else {
-			echo 'berhasil';
+			if ($this->session->userdata('role_id') == 2) {
+				$cekMobil = $this->db->get_where('mobil', ['id_mobil' => $id])->row_array();
+				if ($cekMobil['dipinjam'] == null) {
+					$this->home_m->insertTransaksi($id);
+					$this->session->set_flashdata('success', 'Pesanan berhasil diproses.');
+					redirect('user/pesanan');
+				} else {
+					$this->session->set_flashdata('error', 'Mobil sedang tidak tersedia. Silahkan kembali lagi.');
+					redirect('home/checkout/' . $id);
+				}
+			} else {
+				$this->session->set_flashdata('error', 'Admin tidak bisa memesan.');
+				redirect('home/checkout/' . $id);
+			}
 		}
 	}
 }

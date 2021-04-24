@@ -6,8 +6,8 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li <?= activeMenuHome(['', 'index']) ?>><a href="<?= base_url() ?>">Beranda</a></li>
-                <?php if ($this->session->userdata('username')) : ?>
+                <li <?= activeMenuHome(['', 'home']) ?>><a href="<?= base_url() ?>">Beranda</a></li>
+                <?php if ($this->session->userdata('username') && $this->session->userdata('role_id') == 2) : ?>
                     <li <?= $this->uri->segment(1) == 'user' && $this->uri->segment(2) == '' ? 'class="active"' : '' ?>><a href="<?= base_url('user') ?>">Profil</a></li>
                     <li <?= activeMenu(['password']) ?>><a href="<?= base_url('user/password') ?>">Ganti Password</a></li>
                     <li <?= activeMenu(['pesanan']) ?>><a href="<?= base_url('user/pesanan') ?>">Pesanan Anda</a></li>

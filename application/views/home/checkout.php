@@ -22,8 +22,17 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
-            <form method="post">
+        <div class="row" style="margin:0px">
+            <?php if ($this->session->flashdata('success')) : ?>
+                <div class="alert alert-success mt-2" role="alert">
+                    <?= $this->session->flashdata('success'); ?>
+                </div>
+            <?php elseif ($this->session->flashdata('error')) : ?>
+                <div class="alert alert-danger mt-2" role="alert">
+                    <?= $this->session->flashdata('error'); ?>
+                </div>
+            <?php endif; ?>
+            <form method="post" onsubmit="return confirm('Do you really want to submit the form?');">
                 <div class="col-md-7">
                     <!-- Billing Details -->
                     <div class="billing-details">
@@ -109,11 +118,12 @@
                         </div>
                     </div>
                     <div class="input-checkbox">
-                        <input type="checkbox" id="terms">
+                        <input type="checkbox" name="check" id="terms">
                         <label for="terms">
                             <span></span>
-                            Saya ingin melanjutkan dan setuju dengan syarat & ketentuan yang berlaku
+                            Saya setuju dengan syarat & ketentuan yang berlaku
                         </label>
+                        <small class="text-danger"><?= form_error('check') ?></small>
                     </div>
                     <button type="submit" class="primary-btn order-submit">Pesan sekarang</button>
                 </div>
