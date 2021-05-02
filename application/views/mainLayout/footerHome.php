@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="newsletter">
                         <p>Belum Punya <strong>Akun ?</strong></p>
-                        <a href="<?= base_url('auth') ?>" class="btn btn-danger">Daftar Disini</a>
+                        <a href="<?= base_url('auth/registrasi') ?>" class="btn btn-danger">Daftar Disini</a>
                     </div>
                 </div>
             </div>

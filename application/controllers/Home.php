@@ -61,8 +61,12 @@ class Home extends CI_Controller
 			if ($this->session->userdata('role_id') == 2) {
 				$cekMobil = $this->db->get_where('mobil', ['id_mobil' => $id])->row_array();
 				if ($cekMobil['dipinjam'] == null) {
+					$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
 					$this->home_m->insertTransaksi($id);
 					$this->session->set_flashdata('success', 'Pesanan berhasil diproses.');
+
+					// Send Email
+					$this->_sendEmail($cekUser['email'], $cekUser['nama_lengkap']);
 					redirect('user/pesanan');
 				} else {
 					$this->session->set_flashdata('error', 'Mobil sedang tidak tersedia. Silahkan kembali lagi.');
@@ -73,5 +77,30 @@ class Home extends CI_Controller
 				redirect('home/checkout/' . $id);
 			}
 		}
+	}
+	private function _sendEmail($email, $nama_lengkap)
+	{
+		$config = [
+			'mailtype'  => 'html',
+			'charset'   => 'utf-8',
+			'protocol'  => 'smtp',
+			'smtp_host' => 'smtp.gmail.com',
+			'smtp_user' => 'rentaltesemail@gmail.com',  // Email gmail
+			'smtp_pass'   => 'Rahasia123',  // Password gmail
+			'smtp_crypto' => 'ssl',
+			'smtp_port'   => 465,
+			'crlf'    => "\r\n",
+			'newline' => "\r\n"
+		];
+
+		$this->load->library('email', $config);
+
+		$this->email->from($email, $nama_lengkap);
+		$this->email->to('rentaltesemail@gmail.com');
+
+		$this->email->subject('Pesanan Baru');
+		$this->email->message('Pesanan baru telah berhasil masuk ke list transaksi. Dengan data pengguna sebagai berikut : <br><br> Email : ' . $email . '<br>Nama Lengkap : ' . $nama_lengkap);
+
+		$this->email->send(true);
 	}
 }
