@@ -63,9 +63,9 @@
 							<td><?= $mobil['merek'] ?></td>
 							<td><?= $mobil['keterangan'] == 'dalam peminjaman' ? '<span class="label label-info">' . $mobil['keterangan'] . '</span>' : $mobil['keterangan'] ?></td>
 							<td><?= $mobil['kadaluarsa'] == null ? 'Tidak ada' : date('Y-m-d h:i:s', $mobil['kadaluarsa']) ?></td>
-							<td><?= $mobil['jam_pinjam'] == null ? 'Tidak ada' : $mobil['jam_pinjam'] . " Jam" ?></td>
-							<td><?= $mobil['created_time'] == null ? 'Tidak ada' : date('Y-m-d h:i:s', $mobil['created_time'] + (60 * 60 * $mobil['jam_pinjam'])) ?></td>
-							<td><?= $mobil['created_time'] == null ? 'Tidak ada' : (time() < $mobil['created_time'] + (60 * 60 * $mobil['jam_pinjam']) ? 'Tidak Ada' : '<span class="label label-danger">Terlambat</span>') ?></td>
+							<td><?= $mobil['jam_pinjam'] == null ? 'Tidak ada' : $mobil['jam_pinjam'] . " Hari" ?></td>
+							<td><?= $mobil['created_time'] == null ? 'Tidak ada' : date('Y-m-d h:i:s', $mobil['created_time'] + (60 * 60 * 24 * $mobil['jam_pinjam'])) ?></td>
+							<td><?= $mobil['created_time'] == null ? 'Tidak ada' : (time() < $mobil['created_time'] + (60 * 60 * 24 * $mobil['jam_pinjam']) ? 'Tidak Ada' : '<span class="label label-danger">Terlambat</span>') ?></td>
 						</tr>
 					<?php endforeach ?>
 				</tbody>

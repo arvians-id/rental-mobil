@@ -100,7 +100,7 @@
 								<div><?= $getMobilById['merek'] ?></div>
 							</div>
 							<div class="order-col">
-								<div>Harga Perjam</div>
+								<div>Harga Perhari</div>
 								<div><?= 'Rp. ' . number_format($getMobilById['harga'], 0, ',', '.') ?></div>
 							</div>
 						</div>

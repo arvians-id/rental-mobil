@@ -300,7 +300,7 @@ class Admin extends CI_Controller
 							->setCellValue('H' . $column, $lap['nik'])
 							->setCellValue('I' . $column, $lap['nama_tipe'])
 							->setCellValue('J' . $column, $lap['merek'])
-							->setCellValue('K' . $column, $lap['jam_pinjam'] . " Jam")
+							->setCellValue('K' . $column, $lap['jam_pinjam'] . " Hari")
 							->setCellValue('L' . $column, $lap['disetujui'])
 							->setCellValue('M' . $column, $lap['tanggal_selesai']);
 						$column++;

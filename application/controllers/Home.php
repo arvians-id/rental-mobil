@@ -87,8 +87,8 @@ class Home extends CI_Controller
 			'smtp_host' => 'smtp.gmail.com',
 			'smtp_user' => 'rentaltesemail@gmail.com',  // Email gmail
 			'smtp_pass'   => 'Rahasia123',  // Password gmail
-			'smtp_crypto' => 'ssl',
-			'smtp_port'   => 465,
+			'smtp_crypto' => 'tls',
+			'smtp_port'   => 587,
 			'crlf'    => "\r\n",
 			'newline' => "\r\n"
 		];
@@ -101,6 +101,11 @@ class Home extends CI_Controller
 		$this->email->subject('Pesanan Baru');
 		$this->email->message('Pesanan baru telah berhasil masuk ke list transaksi. Dengan data pengguna sebagai berikut : <br><br> Email : ' . $email . '<br>Nama Lengkap : ' . $nama_lengkap);
 
-		$this->email->send(true);
+
+		if ($this->email->send()) {
+			return true;
+		} else {
+			$this->email->print_debugger(array('headers'));
+		}
 	}
 }
