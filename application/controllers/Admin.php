@@ -175,12 +175,12 @@ class Admin extends CI_Controller
 		];
 		$this->load->view('admin/layout/wrapperTipe', $data);
 	}
-	public function destroy_user($id)
-	{
-		$this->db->delete('auth', ['id' => $id]);
-		$this->session->set_flashdata('success', 'Data berhasil dihapus.');
-		redirect('admin/user');
-	}
+	// public function destroy_user($id)
+	// {
+	// 	$this->db->delete('auth', ['id' => $id]);
+	// 	$this->session->set_flashdata('success', 'Data berhasil dihapus.');
+	// 	redirect('admin/user');
+	// }
 	public function persetujuan()
 	{
 		$data = [

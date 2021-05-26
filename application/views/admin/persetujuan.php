@@ -88,6 +88,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="create-persetujuan" method="post">
+					<input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
 					<div class="form-group">
 						<label>Username</label>
 						<input type="text" class="form-control" id="username" readonly>

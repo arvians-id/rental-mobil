@@ -58,13 +58,21 @@ class Home extends CI_Controller
 			];
 			$this->load->view('home/layout/wrapperHome', $data);
 		} else {
+			$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
+			// Cek Jika checkout hanya untuk fitur pengguna/user
 			if ($this->session->userdata('role_id') == 2) {
 				$cekMobil = $this->db->get_where('mobil', ['id_mobil' => $id])->row_array();
+				// Cek Jika Belum Dipinjam
 				if ($cekMobil['dipinjam'] == null) {
-					$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
-					$this->home_m->insertTransaksi($id);
-					$this->session->set_flashdata('success', 'Pesanan berhasil diproses.');
-
+					// Cek jika KTP/KK Peminjam dan penjamin belum terisi
+					if ($cekUser['u_peminjam'] == null && $cekUser['u_penjamin'] == null) {
+						$this->session->set_flashdata('error', 'Anda belum melakukan upload ktp/kk.');
+						redirect('home/checkout/' . $id);
+					} else {
+						$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
+						$this->home_m->insertTransaksi($id);
+						$this->session->set_flashdata('success', 'Pesanan berhasil diproses.');
+					}
 					// Send Email
 					$this->_sendEmail($cekUser['email'], $cekUser['nama_lengkap']);
 					redirect('user/pesanan');

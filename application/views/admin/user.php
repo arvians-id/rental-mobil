@@ -52,7 +52,6 @@
 									<td style="text-align: center;">
 										<div class="btn-group" role="group" aria-label="Basic example">
 											<a href="<?= base_url('admin/user/') . $user['id'] ?>" class="btn btn-secondary btn-sm">Detail</a>
-											<a href="<?= base_url('admin/destroy_user/') . $user['id'] ?>" id="hapus-user" class="btn btn-secondary btn-sm">Hapus</a>
 										</div>
 									</td>
 								</tr>

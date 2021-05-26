@@ -33,6 +33,7 @@
 				</div>
 			<?php endif; ?>
 			<form method="post" onsubmit="return confirm('Do you really want to submit the form?');">
+				<input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
 				<div class="col-md-7">
 					<!-- Billing Details -->
 					<div class="billing-details">
@@ -74,6 +75,14 @@
 							<label>NIK</label>
 							<input class="input" type="text" name="nik" value="<?= $cekUser['nik'] ?>" readonly>
 							<small class="text-danger"><?= form_error('nik') ?></small>
+						</div>
+						<div class="form-group">
+							<label>KK/KTP Peminjam</label>
+							<input class="input" type="text" name="u_peminjam" value="<?= $cekUser['u_peminjam'] ? 'Sudah Terisi' : 'Tidak ditemukan' ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label>KK/KTP Penjamin</label>
+							<input class="input" type="text" name="u_penjamin" value="<?= $cekUser['u_penjamin'] ? 'Sudah Terisi' : 'Tidak ditemukan' ?>" readonly>
 						</div>
 						<small class="text-info">*Data tidak bisa diubah. Jika ingin mengubah data profil anda, <a href="<?= base_url('user') ?>">Klik disini</a></small>
 					</div>

@@ -12,7 +12,7 @@ class User extends CI_Controller
 	}
 	public function index()
 	{
-		$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'required');
+		$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'required|trim');
 		$this->form_validation->set_rules('email', 'email', 'required|valid_email');
 		$this->form_validation->set_rules('alamat', 'alamat', 'required');
 		$this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'required');
@@ -27,13 +27,58 @@ class User extends CI_Controller
 			];
 			$this->load->view('user/layout/wrapperUser', $data);
 		} else {
+			$config['upload_path']          = './assets/img/uploads/';
+			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['remove_spaces'] 		= TRUE;
+			$config['encrypt_name'] 		= TRUE;
+
+			$this->load->library('upload', $config);
+
+			$u_peminjam = $_FILES['u_peminjam']['name'];
+			$u_penjamin = $_FILES['u_penjamin']['name'];
+
+			// Upload Photo Peminjam
+			$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
+			if ($u_peminjam) {
+				if ($this->upload->do_upload('u_peminjam')) {
+					// $path_peminjam = FCPATH . 'assets/img/uploads/' . $cekUser['u_peminjam'];
+					// if (file_exists($path_peminjam))
+					// 	unlink($path_peminjam);
+
+					$photo_peminjam = $this->upload->data('file_name', 'u_peminjam');
+				} else {
+					$this->session->set_flashdata('error', $this->upload->display_errors() . ' Field peminjam');
+					redirect('user');
+				}
+			} else {
+				$photo_peminjam = $cekUser['u_peminjam'];
+			}
+
+			// Upload Photo Penjamin
+			if ($u_penjamin) {
+				if ($this->upload->do_upload('u_penjamin')) {
+					// $path_penjamin = FCPATH . 'assets/img/uploads/' . $cekUser['u_penjamin'];
+					// if (file_exists($path_penjamin))
+					// 	unlink($path_penjamin);
+
+					$photo_penjamin = $this->upload->data('file_name', 'u_penjamin');
+				} else {
+					$this->session->set_flashdata('error', $this->upload->display_errors() . ' Field penjamin');
+					redirect('user');
+				}
+			} else {
+				$photo_penjamin = $cekUser['u_penjamin'];
+			}
+
 			$data = [
-				'nama_lengkap' => $this->input->post('nama_lengkap'),
-				'email' => $this->input->post('email'),
-				'alamat' => $this->input->post('alamat'),
-				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-				'no_telepon' => $this->input->post('no_telepon'),
-				'nik' => $this->input->post('nik'),
+				'nama_lengkap' => xss_filter($this->input->post('nama_lengkap')),
+				'email' => xss_filter($this->input->post('email')),
+				'alamat' => xss_filter($this->input->post('alamat')),
+				'jenis_kelamin' => xss_filter($this->input->post('jenis_kelamin')),
+				'no_telepon' => xss_filter($this->input->post('no_telepon')),
+				'nik' => xss_filter($this->input->post('nik')),
+				'u_peminjam' => $photo_peminjam,
+				'u_penjamin' => $photo_penjamin
 			];
 
 			// Update Profil
