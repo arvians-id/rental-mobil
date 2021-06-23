@@ -33,6 +33,7 @@
 				</div>
 			<?php endif; ?>
 			<form method="post" onsubmit="return confirm('Do you really want to submit the form?');">
+				<!-- Keamanan csrf -->
 				<input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
 				<div class="col-md-7">
 					<!-- Billing Details -->

@@ -6,8 +6,8 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Auth_model', 'auth_m');
-		$this->load->model('User_model', 'user_m');
+		$this->load->model('Auth_model', 'auth_m'); // Load model Auth_model lalu aliaskan/persingkat menjadi auth_m
+		$this->load->model('User_model', 'user_m'); // Load model User_model lalu aliaskan/persingkat menjadi user_m
 		is_logged_not_in();
 	}
 	public function index()
@@ -27,10 +27,10 @@ class User extends CI_Controller
 			];
 			$this->load->view('user/layout/wrapperUser', $data);
 		} else {
-			$config['upload_path']          = './assets/img/uploads/';
-			$config['allowed_types']        = 'jpeg|jpg|png';
-			$config['remove_spaces'] 		= TRUE;
-			$config['encrypt_name'] 		= TRUE;
+			$config['upload_path']          = './assets/img/uploads/'; // Alamat penyimpanan photo
+			$config['allowed_types']        = 'jpeg|jpg|png'; // extensi yang di ijinkan
+			$config['remove_spaces'] 		= TRUE; // Hilangkan spasi jika di dalam nama photo ada spasi
+			$config['encrypt_name'] 		= TRUE; // Enkripsi nama photo
 
 			$this->load->library('upload', $config);
 
@@ -38,16 +38,12 @@ class User extends CI_Controller
 			$u_penjamin = $_FILES['u_penjamin']['name'];
 
 			// Upload Photo Peminjam
-			$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array();
-			if ($u_peminjam) {
-				if ($this->upload->do_upload('u_peminjam')) {
-					// $path_peminjam = FCPATH . 'assets/img/uploads/' . $cekUser['u_peminjam'];
-					// if (file_exists($path_peminjam))
-					// 	unlink($path_peminjam);
-
-					$photo_peminjam = $this->upload->data('file_name', 'u_peminjam');
-				} else {
-					$this->session->set_flashdata('error', $this->upload->display_errors() . ' Field peminjam');
+			$cekUser = $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array(); // Cek profil user berdasarkan session
+			if ($u_peminjam) { // Jika usernya ada
+				if ($this->upload->do_upload('u_peminjam')) { // Lakukan upload photo
+					$photo_peminjam = $this->upload->data('file_name', 'u_peminjam'); // Data untuk dikimkan ke database
+				} else { //Jika terdapat kesalahan
+					$this->session->set_flashdata('error', $this->upload->display_errors() . ' Field peminjam'); // tampilkan error
 					redirect('user');
 				}
 			} else {
@@ -57,10 +53,6 @@ class User extends CI_Controller
 			// Upload Photo Penjamin
 			if ($u_penjamin) {
 				if ($this->upload->do_upload('u_penjamin')) {
-					// $path_penjamin = FCPATH . 'assets/img/uploads/' . $cekUser['u_penjamin'];
-					// if (file_exists($path_penjamin))
-					// 	unlink($path_penjamin);
-
 					$photo_penjamin = $this->upload->data('file_name', 'u_penjamin');
 				} else {
 					$this->session->set_flashdata('error', $this->upload->display_errors() . ' Field penjamin');
@@ -71,7 +63,7 @@ class User extends CI_Controller
 			}
 
 			$data = [
-				'nama_lengkap' => xss_filter($this->input->post('nama_lengkap')),
+				'nama_lengkap' => xss_filter($this->input->post('nama_lengkap')), // xss_filter guna untuk memfilter string yang aneh-aneh/berbahaya
 				'email' => xss_filter($this->input->post('email')),
 				'alamat' => xss_filter($this->input->post('alamat')),
 				'jenis_kelamin' => xss_filter($this->input->post('jenis_kelamin')),
@@ -108,26 +100,28 @@ class User extends CI_Controller
 			];
 			$this->load->view('user/layout/wrapperUser', $data);
 		} else {
-			$password_lama = $this->input->post('cpassword');
-			$password_baru = $this->input->post('password');
-			$cekUser = $this->db->get_where('auth', ['id' => $this->session->userdata('id')])->row_array();
+			$password_lama = $this->input->post('cpassword'); // ambil input name cpassword di view
+			$password_baru = $this->input->post('password'); // ambil input name password di view
+			$cekUser = $this->db->get_where('auth', ['id' => $this->session->userdata('id')])->row_array(); // ambil data 1 saja berdasrkan session id yang aktif
 
-			if (password_verify($password_lama, $cekUser['password'])) {
-				if ($password_baru != $password_lama) {
+			// cek password yang d input apakah sama dengan yang ada di database
+			if (password_verify($password_lama, $cekUser['password'])) { // Jika password di input dengan di database sama
+				if ($password_baru != $password_lama) { // Cek jika password baru itu sama dengan password yang lama
 					$data = [
-						'password' => password_hash($password_baru, PASSWORD_DEFAULT),
+						'password' => password_hash($password_baru, PASSWORD_DEFAULT), // Enkripsi password dengan hashing, dengan enkripsi PASSWORD_DEFAULT
 						'updated_at' => date('Y-m-d h:i:s')
 					];
+					// Update data berdasarkan session id
 					$this->db->where('id', $this->session->userdata('id'));
 					$this->db->update('auth', $data);
-
+					// beri pesan success
 					$this->session->set_flashdata('success', 'Password berhasil diubah');
 					redirect('user/password');
-				} else {
+				} else { // Jika password lama sama dengan password yang baru, beri pesan error
 					$this->session->set_flashdata('error', 'Password harus baru');
 					redirect('user/password');
 				}
-			} else {
+			} else { // Jika password di input salah dengan yang di database
 				$this->session->set_flashdata('error', 'Password kamu salah');
 				redirect('user/password');
 			}
@@ -139,8 +133,8 @@ class User extends CI_Controller
 		$data = [
 			'viewContent' => 'user/pesanan',
 			'judul' => 'User',
-			'cekUser' => $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array(),
-			'getPemesananMobil' => $this->user_m->getPemesananMobil($idSession)->result_array()
+			'cekUser' => $this->auth_m->getProfilBySession($this->session->userdata('username'))->row_array(), // Ambil data 1 user berdasarkan session username
+			'getPemesananMobil' => $this->user_m->getPemesananMobil($idSession)->result_array() // tampilkan data pemesanan user/customer berdasrkan session id
 		];
 		$this->load->view('user/layout/wrapperUser', $data);
 	}

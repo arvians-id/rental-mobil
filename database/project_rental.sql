@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2021 at 09:46 AM
+-- Generation Time: Jun 07, 2021 at 07:21 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -42,7 +42,7 @@ CREATE TABLE `auth` (
 
 INSERT INTO `auth` (`id`, `username`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$10$4vzaXhyhN64X0MTVoDT0uO.YuFU1HQbyVooMxTP4uRgFKGK4JnMxe', 1, '2021-05-02 02:35:01', '2021-05-02 02:35:01'),
-(2, 'user', '$2y$10$AJhkEGzFeOAbLSSGD9ZU../9Ryi6eRIRljQgtOPDG2Ng0F30co992', 2, '2021-05-02 02:35:10', '2021-05-02 02:35:10');
+(2, 'user', '$2y$10$AJhkEGzFeOAbLSSGD9ZU../9Ryi6eRIRljQgtOPDG2Ng0F30co992', 2, '2021-05-02 02:35:10', '2021-05-26 02:26:30');
 
 -- --------------------------------------------------------
 
@@ -70,12 +70,9 @@ CREATE TABLE `mobil` (
 --
 
 INSERT INTO `mobil` (`id_mobil`, `tipe_id`, `merek`, `harga`, `no_plat`, `warna`, `tahun`, `dipinjam`, `deskripsi`, `photo`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Toyota Avanza', 750000, 'B 7070 UH', 'Hitam', '2010', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'Spesifikasi-Honda-Brio-Satya.jpg', '2021-05-02 02:39:31', '2021-05-02 02:39:31'),
+(1, 1, 'Toyota Avanza', 750000, 'B 7070 UH', 'Hitam', '2010', '2021-05-25 08:09:46', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'Spesifikasi-Honda-Brio-Satya.jpg', '2021-05-02 02:39:31', '2021-05-02 02:39:31'),
 (2, 1, 'Toyota camry', 1500000, 'B 1152 SN', 'Merah', '2018', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '1537875147799-8bb19cdf623eb1137af15ddb61295912.jpeg', '2021-05-02 02:40:00', '2021-05-02 02:40:00'),
-(3, 1, 'Toyota Avanza', 500000, 'B 6730 BJF', 'Putih', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '1436007720p.jpg', '2021-05-02 02:40:33', '2021-05-02 02:40:33'),
 (4, 1, 'Toyota camry', 1500000, 'B 1152 SN', 'Merah', '2018', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'McLaren-MP4-12C-mobil-termahal-di-indonesia.jpg', '2021-05-02 02:40:46', '2021-05-02 02:40:46'),
-(5, 1, 'Toyota Avanza', 1500000, 'B 1152 SN', 'Hitam', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'Rental-mobil-mewah-land-cruiser.jpg', '2021-05-02 02:40:56', '2021-05-02 02:40:56'),
-(6, 1, 'Toyota Avanza', 1500000, 'B 1152 SN', 'Merah', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'xMobil,P20Keluarga,P20yang,P20paling,P20irit,P202,P20Mitsubishi,P20Expander_jpeg_pagespeed_ic_ZGOyTEHz30.jpg', '2021-05-02 02:41:07', '2021-05-02 02:41:07'),
 (7, 1, 'Toyota camry', 500000, 'B 1152 SN', 'Putih', '2010', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '4_Alasan_Memilih_Mobil_Hatchback1.jpg', '2021-05-02 02:44:27', '2021-05-02 02:44:27'),
 (8, 1, 'Toyota Avanza', 1500000, 'B 7070 UH', 'Hitam', '2010', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'shutterstock_259746068-854x540.jpg', '2021-05-02 02:41:31', '2021-05-02 02:41:31'),
 (9, 1, 'Toyota Avanza', 750000, 'B 7070 UH', 'Merah', '2010', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'Gambar-Mobil-Termurah-di-Indonesia.jpg', '2021-05-02 02:41:53', '2021-05-02 02:41:53'),
@@ -88,7 +85,8 @@ INSERT INTO `mobil` (`id_mobil`, `tipe_id`, `merek`, `harga`, `no_plat`, `warna`
 (16, 1, 'Toyota camry', 1500000, 'B 7070 UH', 'Putih', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '1433960482p.jpg', '2021-05-02 02:43:05', '2021-05-02 02:43:05'),
 (17, 1, 'Toyota camry', 750000, 'B 1152 SN', 'Hitam', '2010', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', 'toyota-rush1.jpg', '2021-05-02 02:43:14', '2021-05-02 02:43:14'),
 (18, 1, 'Toyota camry', 750000, 'B 1152 SN', 'Hitam', '2018', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '4_Alasan_Memilih_Mobil_Hatchback.jpg', '2021-05-02 02:43:26', '2021-05-02 02:43:26'),
-(19, 1, 'Toyota Avanza', 1500000, 'B 7070 UH', 'Hitam', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '2028923323.jpg', '2021-05-02 02:43:36', '2021-05-02 02:43:36');
+(19, 1, 'Toyota Avanza', 1500000, 'B 7070 UH', 'Hitam', '2015', NULL, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim eligendi facilis molestiae ad repellat rem repellendus sequi pariatur! Nisi sunt, maxime officiis repudiandae aliquid provident fuga soluta consectetur. Itaque eveniet, est cum facilis veritatis, repellat, in odio tenetur perspiciatis reprehenderit quo magnam maiores explicabo reiciendis. Quas animi error vel voluptates.', '2028923323.jpg', '2021-05-02 02:43:36', '2021-05-02 02:43:36'),
+(20, 1, 'Gatau', 2000000, 'B 0798 D', 'Biru', '2014', NULL, 'as', 'default1.png', '2021-06-07 11:36:41', '2021-06-07 11:36:41');
 
 -- --------------------------------------------------------
 
@@ -104,16 +102,18 @@ CREATE TABLE `profil` (
   `alamat` text DEFAULT NULL,
   `jenis_kelamin` enum('1','2') DEFAULT NULL,
   `no_telepon` varchar(20) DEFAULT NULL,
-  `nik` varchar(50) DEFAULT NULL
+  `nik` varchar(50) DEFAULT NULL,
+  `u_peminjam` varchar(256) DEFAULT NULL,
+  `u_penjamin` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `profil`
 --
 
-INSERT INTO `profil` (`id_profil`, `user_id`, `nama_lengkap`, `email`, `alamat`, `jenis_kelamin`, `no_telepon`, `nik`) VALUES
-(1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `profil` (`id_profil`, `user_id`, `nama_lengkap`, `email`, `alamat`, `jenis_kelamin`, `no_telepon`, `nik`, `u_peminjam`, `u_penjamin`) VALUES
+(1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 'widdy arfiansyah', 'widdyarfiansyah00@gmail.com', 'Jl Bhayangkara', '1', '082299921720', '1234567891123453', 'b0f0344f00ce48cfee17c0d7ae2b66f2.png', '414f23c75459431e38827560073db6e8.png');
 
 -- --------------------------------------------------------
 
@@ -131,10 +131,10 @@ CREATE TABLE `status_rental` (
 --
 
 INSERT INTO `status_rental` (`id_status`, `keterangan`) VALUES
+(0, 'diproses'),
 (1, 'dalam peminjaman'),
 (2, 'ditolak'),
-(3, 'selesai'),
-(5, 'diproses');
+(3, 'selesai');
 
 -- --------------------------------------------------------
 
@@ -175,6 +175,13 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_tr`, `user_id`, `mobil_id`, `kadaluarsa`, `jam_pinjam`, `status_rental`, `tanggal_submit`, `tanggal_selesai`, `created_at`, `created_time`) VALUES
+(6, 2, 1, NULL, 1, 1, '2021-05-25 08:09:01', NULL, '2021-05-25 08:09:46', 1621948186);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -189,7 +196,7 @@ ALTER TABLE `auth`
 --
 ALTER TABLE `mobil`
   ADD PRIMARY KEY (`id_mobil`),
-  ADD KEY `tipe_id` (`tipe_id`);
+  ADD KEY `mobil_ibfk_1` (`tipe_id`);
 
 --
 -- Indexes for table `profil`
@@ -232,7 +239,7 @@ ALTER TABLE `auth`
 -- AUTO_INCREMENT for table `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `profil`
@@ -244,7 +251,7 @@ ALTER TABLE `profil`
 -- AUTO_INCREMENT for table `status_rental`
 --
 ALTER TABLE `status_rental`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tipe`
@@ -256,7 +263,7 @@ ALTER TABLE `tipe`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_tr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -266,7 +273,7 @@ ALTER TABLE `transaksi`
 -- Constraints for table `mobil`
 --
 ALTER TABLE `mobil`
-  ADD CONSTRAINT `mobil_ibfk_1` FOREIGN KEY (`tipe_id`) REFERENCES `tipe` (`id_tipe`);
+  ADD CONSTRAINT `mobil_ibfk_1` FOREIGN KEY (`tipe_id`) REFERENCES `tipe` (`id_tipe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `profil`
