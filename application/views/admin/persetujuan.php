@@ -57,7 +57,7 @@
 										<?php if ($persetujuan['kadaluarsa'] < time()) : ?>
 											<a href="<?= base_url('admin/destroy_persetujuan/') . $persetujuan['id_tr'] ?>" id="hapus-persetujuan" class="btn btn-secondary btn-sm">Hapus</a>
 										<?php else : ?>
-											<a href="javascript:void(0);" id="checkout" data-toggle="modal" data-target="#checkModal" data-id="<?= $persetujuan['id_tr'] ?>" data-nama="<?= $persetujuan['nama_lengkap'] ?>" data-username="<?= $persetujuan['username'] ?>" data-merek="<?= $persetujuan['merek'] ?>" class="text-success ml-2 mr-4"><i class="fas fa-check"></i></a>
+											<a href="javascript:void(0);" id="checkout" data-id="<?= $persetujuan['id_tr'] ?>" data-nama="<?= $persetujuan['nama_lengkap'] ?>" data-username="<?= $persetujuan['username'] ?>" data-merek="<?= $persetujuan['merek'] ?>" class="text-success ml-2 mr-4"><i class="fas fa-check"></i></a>
 											<a href="<?= base_url('admin/tolak_persetujuan/') . $persetujuan['id_tr'] ?>" id="tolak-persetujuan" class="text-danger"><i class="fas fa-times"></i></a>
 										<?php endif ?>
 									</td>

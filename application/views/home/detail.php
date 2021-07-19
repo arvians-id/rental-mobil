@@ -135,7 +135,9 @@
 					<!-- product -->
 					<div class="product">
 						<div class="product-img">
-							<img src="<?= base_url() ?>assets/img/mobil/<?= $mobil['photo'] ?>" height="200" alt="">
+							<div class="embed-responsive embed-responsive-16by9">
+								<img src="<?= base_url() ?>assets/img/mobil/<?= $mobil['photo'] ?>" class="card-img-top embed-responsive-item">
+							</div>
 						</div>
 						<div class="product-body">
 							<p class="product-category"><?= $mobil['nama_tipe'] ?></p>

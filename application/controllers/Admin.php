@@ -35,7 +35,7 @@ class Admin extends CI_Controller
 	{
 		// Parameter pertama untuk name input, Parameter kedua bebas, Parameter ketiga aturan input
 		$this->form_validation->set_rules('kode_tipe', 'Kode Tipe', 'required|trim|is_unique[tipe.kode_tipe]');
-		$this->form_validation->set_rules('nama_tipe', 'Nama Tipe', 'required|trim|min_length[7]');
+		$this->form_validation->set_rules('nama_tipe', 'Nama Tipe', 'required|trim');
 
 		if ($this->form_validation->run() == FALSE) { // Jika validasi gagal, akan muncul error di input dan kembali ke halaman tipe
 			$data = [
